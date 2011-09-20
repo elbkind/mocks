@@ -11,7 +11,7 @@ public class UserAgent
 	
 	public void checkStock(User user)
 	{
-		List<Aktie> toRemove = new ArrayList<Aktie>();
+		List<Long> toRemove = new ArrayList<Long>();
 		for(AktienBuendel buendel: user.getDepot().values())
 		{
 			double value = broker.getValueFor(buendel.getAktie());
@@ -21,18 +21,15 @@ public class UserAgent
 				int bestandNeu = buendel.getAnzahl() - trade.getSold();
 				if(bestandNeu <1)
 				{
-					toRemove.add(buendel.getAktie());
-				}
-				else
-				{
-					buendel.setAnzahl(bestandNeu);
+					toRemove.add(buendel.getAktie().getId());
 				}
 				
+				buendel.setAnzahl(bestandNeu);
 				brokerLog.getTrades().add(trade);
 			}
 		}
 		
-		Set<Aktie> set = user.getDepot().keySet();
+		Set<Long> set = user.getDepot().keySet();
 		set.removeAll(toRemove);
 	}
 

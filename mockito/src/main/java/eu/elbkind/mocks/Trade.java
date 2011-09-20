@@ -2,6 +2,12 @@ package eu.elbkind.mocks;
 
 public class Trade
 {
+	@Override
+	public String toString()
+	{
+		return "Trade [sold=" + sold + ", moneyEarned=" + moneyEarned + ", user=" + user + ", buendel=" + buendel + "]";
+	}
+
 	private int sold;
 
 	private double moneyEarned;

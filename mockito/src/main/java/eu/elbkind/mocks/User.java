@@ -5,9 +5,9 @@ import java.util.Map;
 
 public class User
 {
-	private Map<Aktie, AktienBuendel> depot = new HashMap<Aktie, AktienBuendel>();
+	private Map<Long, AktienBuendel> depot = new HashMap<Long, AktienBuendel>();
 
-	public Map<Aktie, AktienBuendel> getDepot()
+	public Map<Long, AktienBuendel> getDepot()
 	{
 		return depot;
 	}
@@ -17,7 +17,25 @@ public class User
 	{
 		if(!depot.containsKey(toAdd.getAktie()))
 		{
-			depot.put(toAdd.getAktie(), toAdd);
+			depot.put(toAdd.getAktie().getId(), toAdd);
 		}
+	}
+	
+	public AktienBuendel getBuendelByName(String name)
+	{
+		for(AktienBuendel b : depot.values())
+		{
+			if(b.getAktie().getName().equals(name))
+			{
+				return b;
+			}
+		}
+		
+		return null;
+	}
+	
+	public AktienBuendel getBuendelById(long id)
+	{
+		return depot.get(id);
 	}
 }
